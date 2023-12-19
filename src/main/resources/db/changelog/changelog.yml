@@ -1,0 +1,97 @@
+databaseChangeLog:
+  - changeSet:
+      id: Dev-1
+      author: Spatium
+      changes:
+        - createTable:
+            tableName: mangas
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: genre
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: chapters
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: manga_id
+                  type: integer
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: pages
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: extension
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image_data
+                  type: blob
+                  constraints:
+                    nullable: false
+              - column:
+                  name: chapter_id
+                  type: integer
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: chapters
+            baseColumnNames: manga_id
+            referencedTableName: mangas
+            referencedColumnNames: id
+            constraintName: manga_chapter_fk
+        - addForeignKeyConstraint:
+            baseTableName: pages
+            baseColumnNames: chapter_id
+            referencedTableName: chapters
+            referencedColumnNames: id
+            constraintName: chapter_page_fk
