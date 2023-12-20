@@ -1,5 +1,6 @@
 package ru.headsandhands.mangaservice.Service.Impl;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.headsandhands.mangaservice.Service.MangaService;
 import ru.headsandhands.mangaservice.model.Manga;
@@ -27,7 +28,7 @@ public class MangaServiceImpl implements MangaService {
                         .rating(mangaRequest.getRating())
                 .build());
     }
-
+    @Transactional
     @Override
     public List<Manga> getManga() {
         return mangaRepository.findAll();

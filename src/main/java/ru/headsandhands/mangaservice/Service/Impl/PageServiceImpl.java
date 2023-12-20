@@ -2,6 +2,7 @@ package ru.headsandhands.mangaservice.Service.Impl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.headsandhands.mangaservice.Service.PageService;
@@ -10,6 +11,9 @@ import ru.headsandhands.mangaservice.model.Page;
 import ru.headsandhands.mangaservice.repository.PageRepository;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PageServiceImpl implements PageService {
 
@@ -37,4 +41,12 @@ public class PageServiceImpl implements PageService {
         );
 
     }
+
+    @Transactional
+    @Override
+    public byte[] getPage(String fileName) {
+        return pageRepository.findByName(fileName).getImageData();
+    }
+
+
 }
